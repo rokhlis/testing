@@ -37,7 +37,7 @@ public class MishpahugRegistration {
         driver.findElement(By.cssSelector("#newpasswordinput[placeholder='password']")).sendKeys("Password_123");
         Thread.sleep(1000);
         driver.findElement(By.cssSelector("#confirmnewpasswordinput[placeholder='confirm password']")).sendKeys("Password_123");
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
         driver.findElement(By.xpath("//div[contains(text(),'create account')]")).click();
         Thread.sleep(2000);
     }
