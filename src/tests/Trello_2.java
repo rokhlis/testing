@@ -12,6 +12,7 @@ public class Trello_2 {
 
     @BeforeMethod
     public void initAppl() throws InterruptedException {
+        System.out.println("HelloHello");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://trello.com/");
