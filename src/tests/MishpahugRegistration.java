@@ -22,7 +22,7 @@ public class MishpahugRegistration {
 
     @Test
     public void mishpahugRegistration() throws InterruptedException {
-        driver.findElement(By.cssSelector("body:nth-child(2) div.formIntro:nth-child(1) div:nth-child(1) div.but-closed > i.fa.fa-times-circle-o")).click();
+        driver.findElement(By.xpath("//div[@id='closedIntro']//i[@class='fa fa-times-circle-o']")).click();
         Thread.sleep(2000);
         driver.findElement(By.xpath("//span[contains(text(),'Registration')]")).click();
         Thread.sleep(2000);
@@ -30,7 +30,7 @@ public class MishpahugRegistration {
         Thread.sleep(1000);
         driver.findElement(By.cssSelector("#newlogininput[placeholder='login']")).sendKeys("rokhlis");
         Thread.sleep(1000);
-        driver.findElement(By.xpath("/html[1]/body[1]/header[1]/div[3]/div[1]/div[6]/div[1]/div[6]/div[1]/input[1]")).sendKeys("rokhlis@gmail.com");
+        driver.findElement(By.cssSelector("#emailinput[placeholder='email']")).sendKeys("rokhlis@gmail.com");
         Thread.sleep(1000);
         driver.findElement(By.cssSelector("#phonenumberinput[placeholder='phone number']")).sendKeys("0537127366");
         Thread.sleep(1000);
