@@ -7,6 +7,11 @@ import org.testng.annotations.BeforeMethod;
 
 public class TestBase {
     public WebDriver driver;
+    public static final String BOARD_TITLE = "QA Haifa56";
+    public static final String LOGIN = "rokhlis@gmail.com";
+    public static final String PASSWORD = "MozganeT1982";
+    public static final String NAME_TITLE = "Юрий Рохлис (rokhlisyuri)";
+    public static final String USERNAME_TITLE = "Юрий Рохлис";
 
     @BeforeMethod
     public void initAppl() throws InterruptedException {

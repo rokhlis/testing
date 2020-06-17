@@ -1,6 +1,7 @@
 package TrelloTests;
 
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TrelloLogin extends TestBase{
@@ -44,6 +45,21 @@ public class TrelloLogin extends TestBase{
         Thread.sleep(2000);
         System.out.println("Error text: " + driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']")).getText());
         Thread.sleep(2000);
+    }
+
+    @Test
+    public void loginNegativeNoLoginNoPassword() throws InterruptedException {
+        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
+        Thread.sleep(5000);
+
+        driver.findElement(By.id("login")).click();
+        Thread.sleep(5000);
+
+        driver.findElement(By.cssSelector("#error>p"));
+        System.out.println("Error message: " + errorMessage.getText());
+        Thread.sleep(5000);
+
+        Assert.assertEquals("Missing email",errorMessage.getText(),"Error text is not 'Missing email'");
     }
 
 }
