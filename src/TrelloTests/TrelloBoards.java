@@ -43,16 +43,16 @@ public class TrelloBoards extends TestBase {
 
     @Test
     public void trelloAddNewCard() throws InterruptedException {
-        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
-        Thread.sleep(5000);
-        driver.findElement(By.xpath("//input[@id='user']")).sendKeys("rokhlis@gmail.com");
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("MozganeT1982");
-        Thread.sleep(1000);
-        driver.findElement(By.cssSelector("#login")).click();
-        Thread.sleep(5000);
-        driver.findElement(By.xpath("//div[@class='board-tile-details-name']//div[contains(text(),'QA Haifa56')]")).click();
-        Thread.sleep(5000);
+//        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
+//        Thread.sleep(5000);
+//        driver.findElement(By.xpath("//input[@id='user']")).sendKeys("rokhlis@gmail.com");
+//        Thread.sleep(1000);
+//        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("MozganeT1982");
+//        Thread.sleep(1000);
+//        driver.findElement(By.cssSelector("#login")).click();
+//        Thread.sleep(5000);
+//        driver.findElement(By.xpath("//div[@class='board-tile-details-name']//div[contains(text(),'QA Haifa56')]")).click();
+//        Thread.sleep(5000);
         if ((driver.findElements(By.className("js-list")).size()) == 0) {
             driver.findElement(By.xpath("//div[@class='js-add-list list-wrapper mod-add is-idle']//span[@class='placeholder']")).click();
             Thread.sleep(2000);

@@ -1,19 +1,19 @@
 package TrelloTests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TrelloLogin extends TestBase{
 
-
     @Test
     public void trelloPositiveLgnPwd() throws InterruptedException {
         driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
         Thread.sleep(7000);
-        driver.findElement(By.xpath("//input[@id='user']")).sendKeys("rokhlis@gmail.com");
+        driver.findElement(By.xpath("//input[@id='user']")).sendKeys(LOGIN);
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("MozganeT1982");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(PASSWORD);
         Thread.sleep(2000);
         driver.findElement(By.cssSelector("#login")).click();
         Thread.sleep(10000);
@@ -23,13 +23,13 @@ public class TrelloLogin extends TestBase{
     public void trelloNegativeLgn() throws InterruptedException {
         driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
         Thread.sleep(10000);
-        driver.findElement(By.xpath("//input[@id='user']")).sendKeys("user@gmail.com");
+        driver.findElement(By.xpath("//input[@id='user']")).sendKeys(LOGIN);
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("MozganeT1982");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(PASSWORD);
         Thread.sleep(2000);
         driver.findElement(By.cssSelector("#login")).click();
         Thread.sleep(2000);
-        System.out.println("Error text: " + driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']")).getText());
+        System.out.println("Error message: " + driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']")).getText());
         Thread.sleep(2000);
     }
 
@@ -43,7 +43,7 @@ public class TrelloLogin extends TestBase{
         Thread.sleep(2000);
         driver.findElement(By.cssSelector("#login")).click();
         Thread.sleep(2000);
-        System.out.println("Error text: " + driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']")).getText());
+        System.out.println("Error message: " + driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']")).getText());
         Thread.sleep(2000);
     }
 
@@ -55,7 +55,7 @@ public class TrelloLogin extends TestBase{
         driver.findElement(By.id("login")).click();
         Thread.sleep(5000);
 
-        driver.findElement(By.cssSelector("#error>p"));
+        WebElement errorMessage = driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']"));
         System.out.println("Error message: " + errorMessage.getText());
         Thread.sleep(5000);
 
