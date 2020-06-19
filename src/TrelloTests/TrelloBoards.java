@@ -21,8 +21,6 @@ public class TrelloBoards extends TestBase {
         Thread.sleep(1000);
         driver.findElement(By.cssSelector("#login")).click();
         Thread.sleep(5000);
-//        driver.findElement(By.xpath("//div[@class='board-tile-details-name']//div[contains(text(),'QA Haifa56')]")).click();
-//        Thread.sleep(5000);
         WebElement ourBoard = driver.findElement(By.xpath(boardLocator(BOARD_TITLE)));
         ourBoard.click();
         Thread.sleep(5000);
