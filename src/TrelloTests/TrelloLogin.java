@@ -5,61 +5,58 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TrelloLogin extends TestBase{
+public class TrelloLogin extends TestBase {
 
     @Test
-    public void trelloPositiveLgnPwd() throws InterruptedException {
+    public void trelloPositiveLgnPwd() {
         driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
-        Thread.sleep(7000);
+        waitUntilElementIsClickable(By.id("login"), 10);
         driver.findElement(By.xpath("//input[@id='user']")).sendKeys(LOGIN);
-        Thread.sleep(2000);
+        waitUntilAttributeValueIs(By.id("password"), "placeholder", "Enter password", 10);
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(PASSWORD);
-        Thread.sleep(2000);
+//        Thread.sleep(1000);
         driver.findElement(By.cssSelector("#login")).click();
-        Thread.sleep(10000);
+        waitUntilElementIsVisible(By.className("content-all-boards"), 10);
+        WebElement boardIcon = driver.findElement(By.xpath("//button[@data-test-id='header-boards-menu-button']/span[2]"));
+
+        Assert.assertEquals(boardIcon.getText(), "Boards", "Text on the boardIcon is not 'Boards'");
     }
 
     @Test
-    public void trelloNegativeLgn() throws InterruptedException {
+    public void trelloNegativeLgn() {
         driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
-        Thread.sleep(10000);
-        driver.findElement(By.xpath("//input[@id='user']")).sendKeys(LOGIN);
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(PASSWORD);
-        Thread.sleep(2000);
+        waitUntilElementIsClickable(By.id("login"), 10);
+        driver.findElement(By.xpath("//input[@id='user']")).sendKeys("user@mail.com");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("MozganeT1982");
+//        Thread.sleep(1000);
         driver.findElement(By.cssSelector("#login")).click();
-        Thread.sleep(2000);
-        System.out.println("Error message: " + driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']")).getText());
-        Thread.sleep(2000);
-    }
-
-    @Test
-    public void trelloNegativePsswd() throws InterruptedException {
-        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
-        Thread.sleep(10000);
-        driver.findElement(By.xpath("//input[@id='user']")).sendKeys("rokhlis@gmail.com");
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("Password123");
-        Thread.sleep(2000);
-        driver.findElement(By.cssSelector("#login")).click();
-        Thread.sleep(2000);
-        System.out.println("Error message: " + driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']")).getText());
-        Thread.sleep(2000);
-    }
-
-    @Test
-    public void loginNegativeNoLoginNoPassword() throws InterruptedException {
-        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
-        Thread.sleep(5000);
-
-        driver.findElement(By.id("login")).click();
-        Thread.sleep(5000);
-
+        waitUntilElementIsVisible(By.xpath("//div[@id='error']//p[@class='error-message']"), 10);
         WebElement errorMessage = driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']"));
-        System.out.println("Error message: " + errorMessage.getText());
-        Thread.sleep(5000);
+        Assert.assertEquals(errorMessage.getText(), "There isn't an account for this email", "Error message is not correct");
+    }
 
-        Assert.assertEquals("Missing email",errorMessage.getText(),"Error text is not 'Missing email'");
+    @Test
+    public void trelloNegativePsswd() {
+        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
+        waitUntilElementIsClickable(By.id("login"), 10);
+        driver.findElement(By.xpath("//input[@id='user']")).sendKeys("rokhlis@gmail.com");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("Password123");
+        waitUntilElementIsClickable(By.id("login"), 20);
+        driver.findElement(By.cssSelector("#login")).click();
+        waitUntilElementIsVisible(By.xpath("//p[contains(text(),'Incorrect email address and')]"), 10);
+        WebElement errorMessage = driver.findElement(By.xpath("//p[contains(text(),'Incorrect email address and')]"));
+        Assert.assertTrue(errorMessage.getText().contains("Incorrect email address"),
+                "There is no error message or the text of the message is not correct");
+    }
+
+    @Test
+    public void loginNegativeNoLoginNoPassword() {
+        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
+        waitUntilElementIsClickable(By.id("login"), 30);
+        driver.findElement(By.id("login")).click();
+        waitUntilElementIsVisible(By.xpath("//div[@id='error']//p[@class='error-message']"), 10);
+        WebElement errorMessage = driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']"));
+        Assert.assertEquals(errorMessage.getText(), "Missing email");
     }
 
 }
