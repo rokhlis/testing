@@ -9,11 +9,14 @@ public class TrelloLogin extends TestBase {
 
     @Test
     public void trelloPositiveLgnPwd() {
+        //Clicking Login button
         driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
         waitUntilElementIsClickable(By.id("login"), 10);
+        //Entering credentials
         driver.findElement(By.xpath("//input[@id='user']")).sendKeys(LOGIN);
         waitUntilAttributeValueIs(By.id("password"), "placeholder", "Enter password", 10);
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(PASSWORD);
+        //Clicking Login button
         driver.findElement(By.cssSelector("#login")).click();
         waitUntilElementIsVisible(By.className("content-all-boards"), 10);
         WebElement boardIcon = driver.findElement(By.xpath("//button[@data-test-id='header-boards-menu-button']/span[2]"));
@@ -23,11 +26,13 @@ public class TrelloLogin extends TestBase {
 
     @Test
     public void trelloNegativeLgn() {
+        //Clicking Login button
         driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
         waitUntilElementIsClickable(By.id("login"), 10);
+        //Entering credentials
         driver.findElement(By.xpath("//input[@id='user']")).sendKeys("user@mail.com");
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys("MozganeT1982");
-//        Thread.sleep(1000);
+        //Clicking Login button
         driver.findElement(By.cssSelector("#login")).click();
         waitUntilElementIsVisible(By.xpath("//div[@id='error']//p[@class='error-message']"), 10);
         WebElement errorMessage = driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']"));
