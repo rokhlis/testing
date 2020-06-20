@@ -14,7 +14,6 @@ public class TrelloLogin extends TestBase {
         driver.findElement(By.xpath("//input[@id='user']")).sendKeys(LOGIN);
         waitUntilAttributeValueIs(By.id("password"), "placeholder", "Enter password", 10);
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(PASSWORD);
-//        Thread.sleep(1000);
         driver.findElement(By.cssSelector("#login")).click();
         waitUntilElementIsVisible(By.className("content-all-boards"), 10);
         WebElement boardIcon = driver.findElement(By.xpath("//button[@data-test-id='header-boards-menu-button']/span[2]"));
@@ -32,6 +31,7 @@ public class TrelloLogin extends TestBase {
         driver.findElement(By.cssSelector("#login")).click();
         waitUntilElementIsVisible(By.xpath("//div[@id='error']//p[@class='error-message']"), 10);
         WebElement errorMessage = driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']"));
+
         Assert.assertEquals(errorMessage.getText(), "There isn't an account for this email", "Error message is not correct");
     }
 
@@ -45,6 +45,7 @@ public class TrelloLogin extends TestBase {
         driver.findElement(By.cssSelector("#login")).click();
         waitUntilElementIsVisible(By.xpath("//p[contains(text(),'Incorrect email address and')]"), 10);
         WebElement errorMessage = driver.findElement(By.xpath("//p[contains(text(),'Incorrect email address and')]"));
+
         Assert.assertTrue(errorMessage.getText().contains("Incorrect email address"),
                 "There is no error message or the text of the message is not correct");
     }
@@ -56,6 +57,7 @@ public class TrelloLogin extends TestBase {
         driver.findElement(By.id("login")).click();
         waitUntilElementIsVisible(By.xpath("//div[@id='error']//p[@class='error-message']"), 10);
         WebElement errorMessage = driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']"));
+
         Assert.assertEquals(errorMessage.getText(), "Missing email");
     }
 

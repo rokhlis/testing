@@ -30,29 +30,28 @@ public class ProfileVisibility extends TestBase {
     }
 
     @Test
-    public void labelTextVerificationTest() throws InterruptedException {
+    public void labelTextVerificationTest() {
         //Getting menu label text
         WebElement menuLabel = driver.findElement(By.xpath("//button[@aria-label='Open Member Menu']"));
         System.out.println("Menu button text: " + menuLabel.getText());
-        Thread.sleep(2000);
+        waitUntilElementIsVisible(By.xpath(nameLocator(NAME_TITLE)), 20);
         //Getting logo label text
         WebElement nameLabel = driver.findElement(By.xpath(nameLocator(NAME_TITLE)));
         System.out.println("Name icon text: " + nameLabel.getText());
-        Thread.sleep(2000);
         //Equivalence checking
         Assert.assertEquals(menuLabel.getText(), nameLabel.getText(), "'Open Menu Button' and 'Name Icon' have a different names");
     }
 
     @Test
-    public void userNameVerificationTest() throws InterruptedException {
+    public void userNameVerificationTest() {
+        //Getting profile label text
         WebElement userNameProfile = driver.findElement(By.xpath(userNameTitleLocator(USERNAME_TITLE)));
         System.out.println("User name Profile: " + userNameProfile.getText());
-        Thread.sleep(2000);
-
+        waitUntilElementIsVisible(By.name("username"), 20);
+        //Getting username field text
         WebElement userName = driver.findElement(By.name("username"));
         System.out.println("User name text: @" + userName.getAttribute("value"));
-        Thread.sleep(2000);
-
+        //Equivalence checking
         Assert.assertEquals(userNameProfile.getText(), "@" + userName.getAttribute("value"), "'User name Profile' and 'User name' have a different names");
     }
 
