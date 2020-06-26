@@ -42,10 +42,6 @@ public class TestBase {
         }
     }
 
-    public String boardLocator(String boardTitle) {
-        return "//div[@title = '" + boardTitle + "']/../..";
-    }
-
 
     @BeforeMethod
     public void initAppl() {

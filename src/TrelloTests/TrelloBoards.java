@@ -76,5 +76,8 @@ public class TrelloBoards extends TestBase {
         //Counting Cards
         System.out.println("Quantity of Cards: " + driver.findElements(By.className("js-card-name")).size());
     }
+    public String boardLocator(String boardTitle) {
+        return "//div[@title = '" + boardTitle + "']/../..";
+    }
 
 }
