@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class LoginPageHelper extends PageBase{
 
@@ -22,5 +23,13 @@ public class LoginPageHelper extends PageBase{
     }
 
 
+    public void waitUntilErrorMessageIsVisible() {
+        waitUntilElementIsVisible(By.xpath("//div[@id='error']//p[@class='error-message']"), 10);
+    }
+
+    public String getErrorText(){
+        WebElement errorMessage = driver.findElement(By.xpath("//div[@id='error']//p[@class='error-message']"));
+        return errorMessage.getText();
+    }
 }
 

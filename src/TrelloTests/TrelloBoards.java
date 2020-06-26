@@ -1,37 +1,34 @@
 package TrelloTests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.BoardsPageHelper;
+import pages.CurrentBoardHelper;
+import pages.LoginPageHelper;
 
 public class TrelloBoards extends TestBase {
+    LoginPageHelper loginPage;
+    BoardsPageHelper boardsPage;
+    CurrentBoardHelper currentBoard;
 
     @BeforeMethod
     public void initTests() {
-        //Clicking login button
-        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
-        waitUntilElementIsClickable(By.id("login"), 10);
-        //Entering credentials and logging in
-        driver.findElement(By.xpath("//input[@id='user']")).sendKeys(LOGIN);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(PASSWORD);
-        waitUntilElementIsClickable(By.id("login"), 10);
-        driver.findElement(By.cssSelector("#login")).click();
-        waitUntilElementIsVisible((By.className("home-sticky-container")), 20);
-        //Entering the workspace
-        driver.get(WORKSPACE_NAME);
-        waitUntilElementIsVisible((By.xpath(boardLocator(BOARD_TITLE))), 20);
-        //Entering our board
-        WebElement ourBoard = driver.findElement(By.xpath(boardLocator(BOARD_TITLE)));
-        ourBoard.click();
-        waitUntilElementIsVisible((By.id("board")), 20);
+        loginPage = new LoginPageHelper(driver);
+        boardsPage = new BoardsPageHelper(driver);
+        currentBoard = new CurrentBoardHelper(driver);
 
+        loginPage.openLoginPage();
+        loginPage.enteringCredentialsAndClickingLogin(LOGIN,PASSWORD);
+        currentBoard.enterWorkspace(WORKSPACE_NAME);
+        currentBoard.openCurrentBoard(BOARD_TITLE);
     }
 
     @Test
     public void trelloAddNewList() {
-        //Checking quantity of lists
-        System.out.println("Quantity of Lists: " + driver.findElements(By.className("js-list")).size());
+        currentBoard.checkQuantityOfLists();
+//        //Checking quantity of lists
+//        System.out.println("Quantity of Lists: " + driver.findElements(By.className("js-list")).size());
         //Adding new List
         driver.findElement(By.xpath("//div[@class='js-add-list list-wrapper mod-add is-idle']//span[@class='placeholder']")).click();
         waitUntilElementIsVisible((By.xpath("//input[@class='primary mod-list-add-button js-save-edit']")), 20);
@@ -43,8 +40,9 @@ public class TrelloBoards extends TestBase {
         //Canceling other List adding
         waitUntilElementIsVisible((By.xpath("//a[@class='icon-lg icon-close dark-hover js-cancel-edit']")), 20);
         driver.findElement(By.xpath("//a[@class='icon-lg icon-close dark-hover js-cancel-edit']")).click();
-        //Checking quantity of lists
-        System.out.println("Quantity of Lists: " + driver.findElements(By.className("js-list")).size());
+        currentBoard.checkQuantityOfLists();
+//        //Checking quantity of lists
+//        System.out.println("Quantity of Lists: " + driver.findElements(By.className("js-list")).size());
     }
 
     @Test
@@ -75,9 +73,6 @@ public class TrelloBoards extends TestBase {
         driver.findElement(By.xpath("//input[@class='primary confirm mod-compact js-add-card']")).click();
         //Counting Cards
         System.out.println("Quantity of Cards: " + driver.findElements(By.className("js-card-name")).size());
-    }
-    public String boardLocator(String boardTitle) {
-        return "//div[@title = '" + boardTitle + "']/../..";
     }
 
 }
