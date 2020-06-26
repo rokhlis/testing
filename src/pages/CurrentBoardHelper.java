@@ -17,9 +17,6 @@ public class CurrentBoardHelper extends PageBase{
         waitUntilElementIsVisible((By.id("board")), 20);
     }
 
-    public void waitUntilPageIsLoaded() {
-    }
-
     public void enterWorkspace(String workSpace){
         driver.get(workSpace);
         waitUntilElementIsVisible((By.xpath(boardLocator(BOARD_TITLE))), 20);

@@ -38,6 +38,7 @@ public class TrelloBoards extends TestBase {
         }
         currentBoard.checkQuantityOfCards();
         currentBoard.createNewCardWithNameSpecified(CARD_NAME);
+        currentBoard.checkQuantityOfCards();
     }
 
 }
