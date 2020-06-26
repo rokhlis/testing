@@ -17,7 +17,6 @@ public class TrelloBoards extends TestBase {
         loginPage = new LoginPageHelper(driver);
         boardsPage = new BoardsPageHelper(driver);
         currentBoard = new CurrentBoardHelper(driver);
-
         loginPage.openLoginPage();
         loginPage.enteringCredentialsAndClickingLogin(LOGIN,PASSWORD);
         currentBoard.enterWorkspace(WORKSPACE_NAME);
