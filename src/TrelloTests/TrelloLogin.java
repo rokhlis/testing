@@ -3,21 +3,32 @@ package TrelloTests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.LoginPageHelper;
 
 public class TrelloLogin extends TestBase {
+    LoginPageHelper loginPage;
+
+    @BeforeMethod
+    public void initTests(){
+        loginPage = new LoginPageHelper(driver);
+    }
 
     @Test
     public void trelloPositiveLgnPwd() {
+        loginPage.openLoginPage();
+        loginPage.enteringCredentialsAndClickingLogin(LOGIN,PASSWORD);
+
         //Clicking Login button
-        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
-        waitUntilElementIsClickable(By.id("login"), 10);
+//        driver.findElement(By.xpath("//a[@class='btn btn-sm btn-link text-white']")).click();
+//        waitUntilElementIsClickable(By.id("login"), 10);
         //Entering credentials
-        driver.findElement(By.xpath("//input[@id='user']")).sendKeys(LOGIN);
-        waitUntilAttributeValueIs(By.id("password"), "placeholder", "Enter password", 10);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(PASSWORD);
+//        driver.findElement(By.xpath("//input[@id='user']")).sendKeys(LOGIN);
+//        waitUntilAttributeValueIs(By.id("password"), "placeholder", "Enter password", 10);
+//        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(PASSWORD);
         //Clicking Login button
-        driver.findElement(By.cssSelector("#login")).click();
+        //driver.findElement(By.cssSelector("#login")).click();
         waitUntilElementIsVisible(By.className("content-all-boards"), 10);
         WebElement boardIcon = driver.findElement(By.xpath("//button[@data-test-id='header-boards-menu-button']/span[2]"));
 
