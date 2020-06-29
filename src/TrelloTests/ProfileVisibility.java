@@ -1,5 +1,6 @@
 package TrelloTests;
 
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,18 +10,18 @@ import pages.ProfileVisibilityHelper;
 
 public class ProfileVisibility extends TestBase {
     LoginPageHelper loginPage;
-    CurrentBoardHelper currentBoard;
+//    CurrentBoardHelper currentBoard;
     ProfileVisibilityHelper profile;
 
     @BeforeMethod
     public void initTests() {
-        loginPage = new LoginPageHelper(driver);
-        currentBoard = new CurrentBoardHelper(driver,BOARD_TITLE);
-        profile = new ProfileVisibilityHelper(driver);
+        loginPage = PageFactory.initElements(driver, LoginPageHelper.class);
+//        currentBoard = new CurrentBoardHelper(driver,BOARD_TITLE);
+        profile = PageFactory.initElements(driver,ProfileVisibilityHelper.class);
 
         loginPage.openLoginPage();
         loginPage.enteringCredentialsAndClickingLogin(LOGIN, PASSWORD);
-        currentBoard.enterWorkspace(WORKSPACE_NAME);
+        //currentBoard.enterWorkspace(WORKSPACE_NAME);
         profile.openProfileMenu();
         profile.enterProfileAndVisibility();
     }

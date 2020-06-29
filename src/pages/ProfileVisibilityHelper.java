@@ -3,22 +3,36 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import static TrelloTests.TestBase.NAME_TITLE;
 import static TrelloTests.TestBase.USERNAME_TITLE;
 
 public class ProfileVisibilityHelper extends PageBase {
+    @FindBy(xpath = "//button[@aria-label='Open Member Menu']")
+    WebElement menuLabel;
+
+    @FindBy(name = "username")
+    WebElement userName;
+
+    @FindBy(xpath = "//a[@data-test-id='header-member-menu-profile']")
+    WebElement profileAndVisibility;
+
+//    @FindBy(xpath = "nameLocator(NAME_TITLE)")
+//    WebElement nameLabel;
+
     public ProfileVisibilityHelper(WebDriver driver) {
         super(driver);
     }
 
     public void openProfileMenu() {
-        driver.findElement(By.xpath("//button[@aria-label='Open Member Menu']")).click();
+        menuLabel.click();
+        //driver.findElement(By.xpath("//button[@aria-label='Open Member Menu']")).click();
         waitUntilElementIsClickable(By.xpath("//span[contains(text(),'Profile and Visibility')]"), 20);
     }
 
     public String getMenuLabel() {
-        WebElement menuLabel = driver.findElement(By.xpath("//button[@aria-label='Open Member Menu']"));
+        //WebElement menuLabel = driver.findElement(By.xpath("//button[@aria-label='Open Member Menu']"));
         return menuLabel.getText();
     }
 
@@ -28,7 +42,8 @@ public class ProfileVisibilityHelper extends PageBase {
     }
 
     public void enterProfileAndVisibility() {
-        driver.findElement(By.xpath("//a[@data-test-id='header-member-menu-profile']")).click();
+        profileAndVisibility.click();
+        //driver.findElement(By.xpath("//a[@data-test-id='header-member-menu-profile']")).click();
         waitUntilElementIsVisible(By.xpath("//a[@class='tabbed-pane-nav-item-button js-member-profile active']"), 20);
     }
 
@@ -38,7 +53,7 @@ public class ProfileVisibilityHelper extends PageBase {
     }
 
     public String getUsernameText() {
-        WebElement userName = driver.findElement(By.name("username"));
+        //WebElement userName = driver.findElement(By.name("username"));
         return userName.getAttribute("value");
     }
 

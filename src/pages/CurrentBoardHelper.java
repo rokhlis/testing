@@ -21,6 +21,14 @@ public class CurrentBoardHelper extends PageBase{
     @FindBy(xpath = "//a[@class='icon-lg icon-close dark-hover js-cancel-edit']")
     WebElement cancelEditList;
 
+    @FindBy(className = "js-open-card-composer")
+    WebElement openCard;
+
+    @FindBy(className = "js-add-card")
+    WebElement addCardButton;
+
+    @FindBy(xpath = "//textarea[@placeholder='Enter a title for this card…']")
+    WebElement enterCardName;
 
     private String boardName;
 
@@ -52,14 +60,10 @@ public class CurrentBoardHelper extends PageBase{
     }
 
     public void createNewCardWithNameSpecified(String cardName){
-        //Opening card composer
-        driver.findElement(By.className("js-open-card-composer")).click();
-        waitUntilElementIsVisible((By.className("js-add-card")), 20);
-        //Entering card name
-        driver.findElement(By.xpath("//textarea[@placeholder='Enter a title for this card…']")).sendKeys(cardName);
-        waitUntilElementIsClickable((By.className("primary confirm mod-compact js-add-card")), 0);
-        //Adding card to the list
-        driver.findElement(By.xpath("//input[@class='primary confirm mod-compact js-add-card']")).click();
+        openCard.click();
+        enterCardName.sendKeys(cardName);
+        waitUntilElementIsClickable(addCardButton, 0);
+        addCardButton.click();
     }
 
     public void checkQuantityOfLists(){
