@@ -3,36 +3,52 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-import static TrelloTests.TestBase.BOARD_TITLE;
+import java.util.List;
 
 public class CurrentBoardHelper extends PageBase{
-    public CurrentBoardHelper(WebDriver driver) {
-        super(driver);
+    @FindBy(xpath = "//div[@class='js-add-list list-wrapper mod-add is-idle']//span[@class='placeholder']")
+    WebElement addList;
+
+    @FindBy(xpath = "//input[@class='primary mod-list-add-button js-save-edit']")
+    WebElement addListButton;
+
+    @FindBy(name = "name")
+    WebElement inputName;
+
+    @FindBy(xpath = "//a[@class='icon-lg icon-close dark-hover js-cancel-edit']")
+    WebElement cancelEditList;
+
+
+    private String boardName;
+
+    public CurrentBoardHelper(WebDriver driver, String boardName) {
+       super(driver);
+       this.boardName = boardName;
+       PageFactory.initElements(driver,this);
     }
 
-    public void openCurrentBoard(String boardTitle){
-        WebElement ourBoard = driver.findElement(By.xpath(boardLocator(boardTitle)));
+    public void openCurrentBoard(){
+        WebElement ourBoard = driver.findElement(By.xpath(boardLocator()));
         ourBoard.click();
         waitUntilElementIsVisible((By.id("board")), 20);
     }
 
     public void enterWorkspace(String workSpace){
         driver.get(workSpace);
-        waitUntilElementIsVisible((By.xpath(boardLocator(BOARD_TITLE))), 20);
+        waitUntilElementIsVisible((By.xpath(boardLocator())), 20);
     }
 
     public void createNewListWithNameSpecified(String listName){
-        driver.findElement(By.xpath("//div[@class='js-add-list list-wrapper mod-add is-idle']//span[@class='placeholder']")).click();
-        waitUntilElementIsVisible((By.xpath("//input[@class='primary mod-list-add-button js-save-edit']")), 20);
-        //Entering new List name
-        driver.findElement(By.name("name")).sendKeys(listName);
-        waitUntilElementIsClickable(By.xpath("//input[@class='primary mod-list-add-button js-save-edit']"), 20);
-        //Adding new List with entered name
-        driver.findElement(By.xpath("//input[@class='primary mod-list-add-button js-save-edit']")).click();
-        //Canceling other List adding
-        waitUntilElementIsVisible((By.xpath("//a[@class='icon-lg icon-close dark-hover js-cancel-edit']")), 20);
-        driver.findElement(By.xpath("//a[@class='icon-lg icon-close dark-hover js-cancel-edit']")).click();
+        addList.click();
+        waitUntilElementIsVisible(addListButton, 20);
+        inputName.sendKeys(listName);
+        waitUntilElementIsClickable(addListButton, 20);
+        addListButton.click();
+        waitUntilElementIsVisible(cancelEditList, 20);
+        cancelEditList.click();
     }
 
     public void createNewCardWithNameSpecified(String cardName){
@@ -54,7 +70,7 @@ public class CurrentBoardHelper extends PageBase{
         System.out.println("Quantity of Cards: " + driver.findElements(By.className("js-card-name")).size());
     }
 
-    public String boardLocator(String boardTitle) {
-        return "//div[@title = '" + boardTitle + "']/../..";
+    public String boardLocator() {
+        return "//div[@title = '" + boardName + "']/../..";
     }
 }

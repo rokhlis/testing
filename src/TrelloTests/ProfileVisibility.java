@@ -15,7 +15,7 @@ public class ProfileVisibility extends TestBase {
     @BeforeMethod
     public void initTests() {
         loginPage = new LoginPageHelper(driver);
-        currentBoard = new CurrentBoardHelper(driver);
+        currentBoard = new CurrentBoardHelper(driver,BOARD_TITLE);
         profile = new ProfileVisibilityHelper(driver);
 
         loginPage.openLoginPage();
@@ -38,6 +38,5 @@ public class ProfileVisibility extends TestBase {
         profile.getUsernameText();
         Assert.assertEquals(profile.getProfileLabelText(), "@" + profile.getUsernameText(), "'User name Profile' and 'User name' have a different names");
     }
-
 
 }
